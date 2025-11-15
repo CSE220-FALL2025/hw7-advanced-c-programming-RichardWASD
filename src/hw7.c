@@ -36,7 +36,7 @@ matrix_sf* find_bst_sf(char name, bst_sf *root) {
         return root -> mat;
     }
     
-    if(name < root ->left_child){
+    if(name < root -> mat -> name){
         return find_bst_sf(name, root -> left_child);
     }
     else{
@@ -48,7 +48,7 @@ matrix_sf* find_bst_sf(char name, bst_sf *root) {
 void free_bst_sf(bst_sf *root) {
     // Steps: Traverse tree -> reach child and free first. THEN free what the pointer points to
     if(root == NULL){
-        return NULL; //TODO remove NUll?
+        return; //TODO remove NUll?
     }
     free_bst_sf(root -> left_child);
     free_bst_sf(root -> right_child);
@@ -58,8 +58,8 @@ void free_bst_sf(bst_sf *root) {
 
 matrix_sf* add_mats_sf(const matrix_sf *mat1, const matrix_sf *mat2) {
     // Steps: Need variable to store the sum of the matrix (another matrix). Calculate and store -> then return sum
-    unsigned int rows = mat1 -> num_rows;
-    unsigned int cols = mat1 -> num_cols;
+     int rows = mat1 -> num_rows;
+     int cols = mat1 -> num_cols;
     size_t sizeOfData = rows*cols* sizeof(int);
 
     matrix_sf *sumMatrix = malloc(sizeof(matrix_sf) + sizeOfData);
@@ -67,12 +67,12 @@ matrix_sf* add_mats_sf(const matrix_sf *mat1, const matrix_sf *mat2) {
         exit(1);
     }
     else{
-        sumMatrix -> name = "#";
+        sumMatrix -> name = '!';
         sumMatrix -> num_rows = rows;
         sumMatrix -> num_cols = cols;
 
         for(int i = 0; i < rows*cols; i++){// calculate 
-            sumMatrix -> values[i] = mat1 -> values[i] * mat2 -> values[i];
+            sumMatrix -> values[i] = mat1 -> values[i] + mat2 -> values[i];
         }
     }
     return sumMatrix;
@@ -80,9 +80,9 @@ matrix_sf* add_mats_sf(const matrix_sf *mat1, const matrix_sf *mat2) {
 
 matrix_sf* mult_mats_sf(const matrix_sf *mat1, const matrix_sf *mat2) {
 // Steps: Need to check dimensions fist then compute -> Return NEW MATRIX (Will need a new matrix)
-    unsigned int m1Rows = mat1 -> num_rows;
-    unsigned int m2Cols = mat2 -> num_cols;
-    unsigned int compare = mat1 -> num_cols;
+     int m1Rows = mat1 -> num_rows;
+     int m2Cols = mat2 -> num_cols;
+     int compare = mat1 -> num_cols;
     size_t sizeOfData = m1Rows*m2Cols* sizeof(int);
 
     matrix_sf *productMatrix = malloc(sizeof(matrix_sf) + sizeOfData);
@@ -90,7 +90,7 @@ matrix_sf* mult_mats_sf(const matrix_sf *mat1, const matrix_sf *mat2) {
         exit(1);
     }
     else{
-        productMatrix -> name = "#";
+        productMatrix -> name = '!';
         productMatrix -> num_rows = m1Rows;
         productMatrix -> num_cols = m2Cols;
     }
@@ -99,8 +99,9 @@ matrix_sf* mult_mats_sf(const matrix_sf *mat1, const matrix_sf *mat2) {
         for(int j = 0; j < m2Cols; j++){
             int total = 0; 
             for(int k = 0; k < compare; k++){
-                total = mat1 -> values[i * compare + k] * mat2 -> values[k * m2Cols + j];
+                total += mat1 -> values[i * compare + k] * mat2 -> values[k * m2Cols + j];
             }
+            productMatrix -> values[i*m2Cols + j] = total;
         }
     }
     
@@ -119,13 +120,13 @@ matrix_sf* transpose_mat_sf(const matrix_sf *mat) {
         exit(1);
     }
     else{
-        tMatrix -> name = "#";
+        tMatrix -> name = '#';
         tMatrix -> num_rows = rows; 
         tMatrix -> num_cols = cols;
     }
 
     for(int i = 0; i < rows; i++){
-        for(int j = 0; cols; j++){
+        for(int j = 0; j<cols; j++){
             tMatrix -> values[i*cols + j] = mat -> values[j * mat -> num_cols + i]; 
         }
     }
@@ -135,9 +136,9 @@ matrix_sf* transpose_mat_sf(const matrix_sf *mat) {
 
 matrix_sf* create_matrix_sf(char name, const char *expr) {
     //Steps: TODO 
-    char *ptr = expr;
-    int rows = stroul(ptr, &ptr, 10);
-    int cols = stroul(ptr, &ptr, 10);
+    char *ptr = (char*)expr;
+    unsigned int rows = strtoul(ptr, &ptr, 10);
+    unsigned int cols = strtoul(ptr, &ptr, 10);
     size_t sizeOfData = rows*cols* sizeof(int);
     
     matrix_sf *mat = malloc(sizeof(matrix_sf) + sizeOfData);
@@ -145,7 +146,7 @@ matrix_sf* create_matrix_sf(char name, const char *expr) {
         exit(1);
     }
     else{
-        mat -> name = "#";
+        mat -> name = name;
         mat -> num_rows = rows; 
         mat -> num_cols = cols;
     }
@@ -156,7 +157,7 @@ matrix_sf* create_matrix_sf(char name, const char *expr) {
     ptr++;
 
     for(int i = 0; i < rows*cols; i++){
-        mat -> values[i] = stroul(ptr, &ptr, 10);
+        mat -> values[i] = strtol(ptr, &ptr, 10);
         while(*ptr && isspace(*ptr)){
             ptr++;
         }
@@ -187,6 +188,7 @@ char* infix2postfix_sf(char *infix) {
         char c = infix[i];
         
         if(isspace(c)){
+            continue;
         }
         if(isalpha(c)){
             post[iPost++] = c;
@@ -236,7 +238,7 @@ char* infix2postfix_sf(char *infix) {
                 }
 
                 if(precedense <= peek){
-                    post[iPost] = stack[topStack--];
+                    post[iPost++] = stack[topStack--];
                 }
                 else{
                     break;
@@ -248,7 +250,7 @@ char* infix2postfix_sf(char *infix) {
         }
     }
     while(topStack != -1){
-        post[iPost] = stack[topStack--];
+        post[iPost++] = stack[topStack--];
     }
     post[iPost] = '\0';
     free(stack);
@@ -276,7 +278,7 @@ matrix_sf* evaluate_expr_sf(char name, char *expr, bst_sf *root) {
         else if(c == '\''){
             matrix_sf *m1 = stack[topStack--];
             matrix_sf *res = transpose_mat_sf(m1);
-            stack[++topStack];
+            stack[++topStack] =res;
 
             if(!isalpha(m1 -> name)){
                 free(m1);
@@ -337,27 +339,37 @@ matrix_sf *execute_script_sf(char *filename) {
 
         char matName = *ptr;
         ptr++;
-        while(*ptr && (*ptr != '\0')){
+        while(*ptr && (*ptr != '=')){
             ptr++;
         }
+        ptr++;
         while(*ptr && isspace(*ptr)){
             ptr++;
         }
 
         char *ln = strchr(ptr, '\n');
         if(ln){
-            matrix_sf *newMat = NULL;
+            *ln = '\0';
+        }
+        matrix_sf *newMat = NULL;
+
+        if(strchr(ptr, '[')){
+            newMat = create_matrix_sf(matName, ptr);
+        }
+        else{
+            newMat = evaluate_expr_sf(matName,ptr,root);
         }
 
-        // if(){
-
-        // }
+        if(newMat){
+            root = insert_bst_sf(newMat,root);
+            lastLineMatrix = newMat;
+        }
 
     }
 
-
-
-   return NULL;
+    free(line);
+    fclose(file);
+    return lastLineMatrix;
 }
 
 // This is a utility function used during testing. Feel free to adapt the code to implement some of
