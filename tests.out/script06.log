@@ -1,0 +1,38 @@
+==34597== Memcheck, a memory error detector
+==34597== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==34597== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==34597== Command: ./bin/execute_script script06
+==34597== 
+2 6 33 -22 -36 63 -65 53 -6 123 47 -127 -142 52
+==34597== 
+==34597== HEAP SUMMARY:
+==34597==     in use at exit: 108 bytes in 3 blocks
+==34597==   total heap usage: 11 allocs, 8 frees, 8,973 bytes allocated
+==34597== 
+==34597== 24 bytes in 1 blocks are indirectly lost in loss record 1 of 3
+==34597==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==34597==    by 0x1094A2: insert_bst_sf (hw7.c:7)
+==34597==    by 0x10950C: insert_bst_sf (hw7.c:20)
+==34597==    by 0x10A202: execute_script_sf (hw7.c:364)
+==34597==    by 0x10942E: main (execute_script.c:8)
+==34597== 
+==34597== 60 bytes in 1 blocks are indirectly lost in loss record 2 of 3
+==34597==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==34597==    by 0x10996D: create_matrix_sf (hw7.c:144)
+==34597==    by 0x10A1C8: execute_script_sf (hw7.c:357)
+==34597==    by 0x10942E: main (execute_script.c:8)
+==34597== 
+==34597== 108 (24 direct, 84 indirect) bytes in 1 blocks are definitely lost in loss record 3 of 3
+==34597==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==34597==    by 0x1094A2: insert_bst_sf (hw7.c:7)
+==34597==    by 0x10A202: execute_script_sf (hw7.c:364)
+==34597==    by 0x10942E: main (execute_script.c:8)
+==34597== 
+==34597== LEAK SUMMARY:
+==34597==    definitely lost: 24 bytes in 1 blocks
+==34597==    indirectly lost: 84 bytes in 2 blocks
+==34597==      possibly lost: 0 bytes in 0 blocks
+==34597==    still reachable: 0 bytes in 0 blocks
+==34597==         suppressed: 0 bytes in 0 blocks
+==34597== 
+==34597== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

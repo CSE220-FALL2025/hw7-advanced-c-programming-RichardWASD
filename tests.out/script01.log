@@ -1,0 +1,46 @@
+==34475== Memcheck, a memory error detector
+==34475== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==34475== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==34475== Command: ./bin/execute_script script01
+==34475== 
+3 4 6 27 4 -26 32 30 39 20 93 -47 -88 -2
+==34475== 
+==34475== HEAP SUMMARY:
+==34475==     in use at exit: 192 bytes in 5 blocks
+==34475==   total heap usage: 13 allocs, 8 frees, 9,071 bytes allocated
+==34475== 
+==34475== 24 bytes in 1 blocks are indirectly lost in loss record 1 of 4
+==34475==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==34475==    by 0x1094A2: insert_bst_sf (hw7.c:7)
+==34475==    by 0x109542: insert_bst_sf (hw7.c:24)
+==34475==    by 0x10A202: execute_script_sf (hw7.c:364)
+==34475==    by 0x10942E: main (execute_script.c:8)
+==34475== 
+==34475== 24 bytes in 1 blocks are indirectly lost in loss record 2 of 4
+==34475==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==34475==    by 0x1094A2: insert_bst_sf (hw7.c:7)
+==34475==    by 0x109542: insert_bst_sf (hw7.c:24)
+==34475==    by 0x109542: insert_bst_sf (hw7.c:24)
+==34475==    by 0x10A202: execute_script_sf (hw7.c:364)
+==34475==    by 0x10942E: main (execute_script.c:8)
+==34475== 
+==34475== 120 bytes in 2 blocks are indirectly lost in loss record 3 of 4
+==34475==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==34475==    by 0x10996D: create_matrix_sf (hw7.c:144)
+==34475==    by 0x10A1C8: execute_script_sf (hw7.c:357)
+==34475==    by 0x10942E: main (execute_script.c:8)
+==34475== 
+==34475== 192 (24 direct, 168 indirect) bytes in 1 blocks are definitely lost in loss record 4 of 4
+==34475==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==34475==    by 0x1094A2: insert_bst_sf (hw7.c:7)
+==34475==    by 0x10A202: execute_script_sf (hw7.c:364)
+==34475==    by 0x10942E: main (execute_script.c:8)
+==34475== 
+==34475== LEAK SUMMARY:
+==34475==    definitely lost: 24 bytes in 1 blocks
+==34475==    indirectly lost: 168 bytes in 4 blocks
+==34475==      possibly lost: 0 bytes in 0 blocks
+==34475==    still reachable: 0 bytes in 0 blocks
+==34475==         suppressed: 0 bytes in 0 blocks
+==34475== 
+==34475== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

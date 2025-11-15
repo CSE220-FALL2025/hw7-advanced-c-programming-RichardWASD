@@ -1,0 +1,53 @@
+==34552== Memcheck, a memory error detector
+==34552== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==34552== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==34552== Command: ./bin/execute_script script17
+==34552== 
+11 9 1735 20494 -19663 -4491 10862 3734 -1120 9210 6087 -13346 -9292 12290 -691 4705 -13331 -7974 -7552 94 13443 -8728 1944 6827 -15314 17352 8552 4035 -1687 -9573 606 2653 -4343 -2315 -23434 -2457 -15369 -3051 -14809 -4861 1 2191 6770 -57 -12729 3729 13081 12774 16139 -2840 -5533 27182 19853 4139 21469 -7413 -22572 1939 -23078 6015 -7439 -2141 -18861 1926 32972 -1027 -11206 93 6063 -21801 -2594 1214 -9128 4709 5072 -26495 34427 3981 -1341 4731 4874 -3523 -17132 11214 10917 5954 -10875 -3333 -26709 15809 -20148 -27064 -3086 -1657 -9502 6661 3815 23441 -8400 18195 18242
+==34552== 
+==34552== HEAP SUMMARY:
+==34552==     in use at exit: 848 bytes in 7 blocks
+==34552==   total heap usage: 20 allocs, 13 frees, 11,807 bytes allocated
+==34552== 
+==34552== 24 bytes in 1 blocks are indirectly lost in loss record 1 of 5
+==34552==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==34552==    by 0x1094A2: insert_bst_sf (hw7.c:7)
+==34552==    by 0x10950C: insert_bst_sf (hw7.c:20)
+==34552==    by 0x10A202: execute_script_sf (hw7.c:364)
+==34552==    by 0x10942E: main (execute_script.c:8)
+==34552== 
+==34552== 24 bytes in 1 blocks are indirectly lost in loss record 2 of 5
+==34552==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==34552==    by 0x1094A2: insert_bst_sf (hw7.c:7)
+==34552==    by 0x10950C: insert_bst_sf (hw7.c:20)
+==34552==    by 0x10950C: insert_bst_sf (hw7.c:20)
+==34552==    by 0x10A202: execute_script_sf (hw7.c:364)
+==34552==    by 0x10942E: main (execute_script.c:8)
+==34552== 
+==34552== 24 bytes in 1 blocks are indirectly lost in loss record 3 of 5
+==34552==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==34552==    by 0x1094A2: insert_bst_sf (hw7.c:7)
+==34552==    by 0x109542: insert_bst_sf (hw7.c:24)
+==34552==    by 0x10A202: execute_script_sf (hw7.c:364)
+==34552==    by 0x10942E: main (execute_script.c:8)
+==34552== 
+==34552== 752 bytes in 3 blocks are indirectly lost in loss record 4 of 5
+==34552==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==34552==    by 0x10996D: create_matrix_sf (hw7.c:144)
+==34552==    by 0x10A1C8: execute_script_sf (hw7.c:357)
+==34552==    by 0x10942E: main (execute_script.c:8)
+==34552== 
+==34552== 848 (24 direct, 824 indirect) bytes in 1 blocks are definitely lost in loss record 5 of 5
+==34552==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==34552==    by 0x1094A2: insert_bst_sf (hw7.c:7)
+==34552==    by 0x10A202: execute_script_sf (hw7.c:364)
+==34552==    by 0x10942E: main (execute_script.c:8)
+==34552== 
+==34552== LEAK SUMMARY:
+==34552==    definitely lost: 24 bytes in 1 blocks
+==34552==    indirectly lost: 824 bytes in 6 blocks
+==34552==      possibly lost: 0 bytes in 0 blocks
+==34552==    still reachable: 0 bytes in 0 blocks
+==34552==         suppressed: 0 bytes in 0 blocks
+==34552== 
+==34552== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

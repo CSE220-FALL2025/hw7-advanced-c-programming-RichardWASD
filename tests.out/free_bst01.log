@@ -1,0 +1,13 @@
+==34611== Memcheck, a memory error detector
+==34611== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==34611== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==34611== Command: ./bin/free_bst01
+==34611== 
+==34611== 
+==34611== HEAP SUMMARY:
+==34611==     in use at exit: 0 bytes in 0 blocks
+==34611==   total heap usage: 6 allocs, 6 frees, 108 bytes allocated
+==34611== 
+==34611== All heap blocks were freed -- no leaks are possible
+==34611== 
+==34611== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
